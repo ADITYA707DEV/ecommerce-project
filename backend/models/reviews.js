@@ -4,6 +4,14 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose
 
 const reviewSchema = new Schema({
+    user:{
+        type:String,
+        require: true
+    },
+    email:{
+        type:String,
+        require: true
+    },
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         require: true

@@ -62,9 +62,9 @@ function SKLogin() {
   <>
    {showAlert.show&&<Alerts  colour={showAlert.colour} text={showAlert.text} setShowAlert={setShowAlert} show = {showAlert.show}></Alerts>}
     <div className='d-flex  '>
-      <div className='container border border-light shadow px-4 py-5 my-4 w-50 rounded bg-white' >
+      <div className='container ' >
         <div className=' d-flex align-items-center justify-content-center flex-column'>
-          <img src={image1} style={{ height: "150px" }} alt="notfound" />
+          <img src={image1} alt="notfound" />
           <h3>shopKeeper login</h3>
         </div>
         <form onSubmit={handleOnSubmit} >

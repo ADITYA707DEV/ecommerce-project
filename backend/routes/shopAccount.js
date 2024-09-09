@@ -14,7 +14,7 @@ const bcrypt = require("bcryptjs")
 const fetchUser = require("../middleware/middleware")
 const verifyUser3 = require("../middleware/fifth")
 const path = require("path")
-const stripe = require('stripe')('sk_test_51PuatxP5i1YBGuOcqG17KT9JoP8ZVP89T0tPRix3NWCMDTou9O8mWxaWSyoOLYC0OVJZbEylZRgkNYPBDPC8lNoK00YKoEkByi');
+
 const fs = require("fs")
 const cloudinary = require("cloudinary").v2
 cloudinary.config({
@@ -33,12 +33,13 @@ router.post("/skAccount", [body("name").not().isEmpty().isLength({ min: 3 }), bo
   const errors = validationResult(req)
   if (!(errors.isEmpty())) {
     // res.status(400).res.json({status:failed,error:errors.array()})
-    return res.send({ error: "bad request" }).status(400)
+    return res.send({ message: "bad request" }).status(400)
   }
-  const auser = await User.findOne({ email: req.body.email })
+  const auser = await User.find({})
+  
  
-  if (auser) {
-    return res.status(401).send({ message: "user already exists" })
+  if (auser.length > 0) {
+    return res.status(401).send({ message: "only one shopkeeper account is allowed!" })
   }
 
   try {
@@ -83,6 +84,8 @@ router.delete("/skAccount",fetchUser,async (req,res)=>{
     await customers.deleteMany({})
     await rev.deleteMany({})
     await shop.deleteMany({})
+    await orderTracking.deleteMany({})
+    await shopOrders.deleteMany({})
     res.clearCookie("token")
     res.send({message:"deleted successfully"})
   } catch (error) {
@@ -209,7 +212,7 @@ router.get("/keeperlogout", fetchUser, async (req, res) => {
 })
 router.get("/keeperDetails", async (req, res) => {
   try {
-    const akeeper = await User.find().select({ phone: 1, email: 1, officeaddress: 1, _id: 0, shopName: 1, name: 1 })
+    const akeeper = await User.find().select({ phone: 1, email: 1, officeaddress: 1,name:1, _id: 0, shopName: 1, name: 1 })
     if (!akeeper) {
       return res.send({ details: null })
     }
@@ -222,14 +225,16 @@ router.get("/keeperDetails", async (req, res) => {
 
 
 router.post("/orders",verifyUser3,async (req,res)=>{
+  console.log("this is req bosy in orders")
+  console.log(req.body)
   try {
 const orders = await (req.body.order).map( (item)=>{
   const {key,_v,user,overallRating,...rest} = item
 return rest
 
 })
-if(req.payment === "online"){
-  
+if(req.body.payment === "online"){
+  console.log("this is running")
   const newOrder = {
     customerDetails: req.body.customerDetails,
     OrderItems: orders,

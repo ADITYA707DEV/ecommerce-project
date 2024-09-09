@@ -6,6 +6,7 @@ import { resetKeeper } from '../redux/tokenSlice'
 import Modal from './Modal'
 import { useSelector,useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom'
+import { resetCart } from '../redux/userDataSlice'
 import Alerts from './Alerts'
 import { useRef } from 'react'
 
@@ -33,6 +34,8 @@ const handleLogout = async ()=>{
   
   dispatch(resetKeeper())
   navigate("/")
+ 
+  
 }
 
   const [cardDetails, setCardDetails] = useState([])
@@ -50,7 +53,9 @@ const handleLogout = async ()=>{
   
     ref.current.click()
   dispatch(resetKeeper())
-  navigate("/login")
+  dispatch(resetCart())
+  navigate("/")
+  navigate(0)
   }
 
 
@@ -69,8 +74,8 @@ const handleLogout = async ()=>{
       })
 
       const response = await res.json()
-      //  console.log(response)
-      if (response.status === true) {
+  
+      if (res.status === 200) {
         setCardDetails(response.auser)
 
 
@@ -94,6 +99,7 @@ const handleLogout = async ()=>{
 
   return (
     <div>
+      <a href='/' ref={ref } className='d-none'></a>
       {showAlert.show&&<Alerts colour={showAlert.colour} setShowAlert={setShowAlert} text={showAlert.text} show = {showAlert.show}></Alerts>}
       <div className='d-flex'>
         <nav className="navbar navbar-expand-lg bg-primary rounded m-2  flex-grow-1">

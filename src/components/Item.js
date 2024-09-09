@@ -20,7 +20,6 @@ function Item() {
   const Dispatch = useDispatch()
   const [customerReviews, setCustomerReviews] = useState({ reviews: [] })
   const [choiceCart, setChoiceCart] = useState(item)
- 
 
   
 const handleSize = (e)=>{
@@ -44,6 +43,7 @@ const handleCart = (e) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+      
         productId: item._id,
         overallRating: overallRating
       })
@@ -92,6 +92,7 @@ const handleCart = (e) => {
       })
     })
     const res = await response.json()
+   
     setCustomerReviews({ reviews: res.reviews })
 
     setRating(res.reviews)
@@ -119,7 +120,8 @@ const handleCart = (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
+        user:details.data.name,
+        email:details.data.email,
         productId: item._id,
         description: text,
         rating: rate,
@@ -166,11 +168,12 @@ const handleCart = (e) => {
 
                 {(customerReviews.reviews).map((rv) => {
 
-                  return (<li className="list-group-item"><div className="card" >
+                  return (<li className="list-group-item "><div className="card" >
                     <div className="card-body">
-                      <p>{rv.rating}</p>
-                      <h5 className="card-title">user1</h5>
-                      <p className="card-text">{rv.description}</p>
+                
+                      <div className=" fs-4 d-flex justify-content-between">{rv.user}       <span className='badge text-bg-warning align-self-end' >{rv.rating}</span></div>
+                      <small className='fw-light '>{rv.email}</small>
+                      <p className="card-text  my-3">{rv.description}</p>
 
                     </div>
                   </div>

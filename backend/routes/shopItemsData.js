@@ -12,9 +12,9 @@ const cloudinary = require("cloudinary").v2
 const fs = require("fs")
 
 cloudinary.config({
-  cloud_name:  "dchjvals0",
-  api_key: "374941848855849",
-  api_secret: "uvREhaeFw2ZWD-oFJLAb1RoypRk",
+  cloud_name:  process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 
@@ -141,7 +141,7 @@ router.get("/getallitems",async(req,res)=>{
   }
 })
 
-router.post("/reviews",[body("productId").not().isEmpty(),body("description").not().isEmpty()],async(req,res)=>{
+router.post("/reviews",[body("email").not().isEmpty().isEmail(),body("user").not().isEmpty(),body("productId").not().isEmpty(),body("description").not().isEmpty()],async(req,res)=>{
   const errors = validationResult(req)
   if(!(errors.isEmpty()) ){
    // res.status(400).res.json({status:failed,error:errors.array()})
@@ -150,6 +150,8 @@ router.post("/reviews",[body("productId").not().isEmpty(),body("description").no
   try {
 
     const newReview = {
+      email:req.body.email,
+      user: req.body.user,
       productId : req.body.productId,
       description: req.body.description,
       rating: req.body.rating 

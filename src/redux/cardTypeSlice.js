@@ -20,11 +20,14 @@ export const cardTypeSlice =  createSlice({
               }
              
    
+        },
+        resetCardType :()=>{
+          return initialState
         }   
 
     }
 })
 
-export const {setCardType} =  cardTypeSlice.actions
+export const {setCardType,resetCardType} =  cardTypeSlice.actions
 
 export default cardTypeSlice.reducer

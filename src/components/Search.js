@@ -64,7 +64,7 @@ useEffect(()=>{
         <hr />
 
         <p className="card-text">category: {item.tag}</p>
-        <span className=" ms-auto badge text-bg-warning " style={{width:"60px"}}>{item.overallRating}</span>
+        <span className=" ms-auto badge text-bg-warning " style={{maxWidth:"60px"}}>{item.overallRating}</span>
       </div>
     </div>
   </div>

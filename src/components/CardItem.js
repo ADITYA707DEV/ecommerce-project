@@ -1,5 +1,5 @@
 
-import { setCart } from '../redux/cartSlice'
+
 import { useDispatch,useSelector } from 'react-redux'
 import { setitem } from '../redux/itemSlice'
 import { useNavigate } from 'react-router-dom'
@@ -21,10 +21,7 @@ function CardItem(props) {
   }
 
   
-  const handleCart = ()=>{
-    Dispatch(setCart(props.note))
- 
-  }
+  
   const handeDeleteShopItem = async  ()=>{
   const res = await fetch("http://localhost:5000/items/deleteItems", {
     method: "POST",
@@ -43,7 +40,7 @@ props.getItems()
   }
  
   return (
-    <div className="col my-3" onDoubleClick={()=>{handleClick(props.note)}}>
+    <div className="col my-3" onClick={()=>{handleClick(props.note)}} style={{cursor:"pointer"}}>
       <div className="card " style={{maxWidth: "15rem"}}>
   <img src= {props.note.src} style={{height:"15rem"}} className="card-img-top" alt="..."/>
   <div className="card-body ">
@@ -53,17 +50,8 @@ props.getItems()
   
   
     <div className="dropdown">
-    { props.shopItem==true?<div><FontAwesomeIcon icon={faTrash} style={{cursor:"pointer"}} onClick={handeDeleteShopItem}/></div>:<button className="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-  Buy
-  </button>}
-  <ul className="dropdown-menu">
-   <div  className="mx-2"> 
-    <div >price: Rs {props.note.price}.00</div>
-
-    <div >click below to add to cart</div>
-    <button className="btn btn-primary btn-sm my-2"  onClick={handleCart}>click me</button>
-   </div>
-  </ul>
+    { props.shopItem==true&&<div><FontAwesomeIcon icon={faTrash} style={{cursor:"pointer"}} onClick={handeDeleteShopItem}/></div>}
+ 
 </div>
   </div>
 </div>

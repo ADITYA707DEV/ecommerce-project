@@ -4,8 +4,8 @@ const router = express.Router()
 const orderTracking = require("../models/orderTracking")
 const User = require("../models/userAccount")
 const jwt = require("jsonwebtoken")
-const jwt_Secret = "hoolululu"
-const JWT_secret2 = "yosh"
+const jwt_Secret = process.env.JWT_SECRET_1
+const JWT_secret2 = process.env.JWT_SECRET_2
 const verifyUser2 = require("../middleware/fourth")
 const verifyUser3 = require("../middleware/fifth")
 
@@ -20,37 +20,36 @@ const {body, validationResult} = require("express-validator")
 
 router.post("/userAccount",[body("name").not().isEmpty().isLength({min:5}),body("email").not().isEmpty().isEmail(),body("password").not().isEmpty().isLength({min:5})],async (req,res)=>{
   
-      
-       const errors = validationResult(req)
-       if(!(errors.isEmpty()) ){
-        // res.status(400).res.json({status:failed,error:errors.array()})
-         return res.send({error:"bad request"}).status(400)
-       }
-       let success = false
-      //  const hash = bcrypt.hash(req.body.password,salt)
+      try {
+        console.log(req.body)
+        const errors = validationResult(req)
+        if(!(errors.isEmpty()) ){
+          console.log(errors)
+         // res.status(400).res.json({status:failed,error:errors.array()})
+          return res.send({message:"bad request"}).status(400)
+        }
+        let success = false
+       //  const hash = bcrypt.hash(req.body.password,salt)
+        
+        const  newUser = {
+          name: req.body.name,
+          email: req.body.email,
        
-       const  newUser = {
-         name: req.body.name,
-         email: req.body.email,
+          password: req.body.password
+       }
+       const auser = await User.findOne({email:newUser.email})
       
-         password: req.body.password
-      }
-      const auser = await User.findOne({email:newUser.email})
-     
-      if( auser){
-        return  res.status(400).send({message:"user with this email already exists",success:success})
-      }
-
-
-
-
-
-      
-      
-      
+       if( auser){
+         return  res.status(400).send({message:"user with this email already exists",success:success})
+       }
       await User.create(newUser)
-      success = true
-     res.send({message:"userCreated",success:success})
+       success = true
+      res.send({message:"userCreated",success:success})
+      } catch (error) {
+        res.status(500).send({message:"some error occurred"})
+        console.log(error)
+      }
+  
 
 })
 
@@ -147,7 +146,7 @@ router.post("/getuserdetail",[body("userId").not().isEmpty(),body("address").not
     res.cookie("verif",token,{
       httpOnly: true,})
    
-    res.send({message:auser})
+    res.send({user:auser})
   }
   catch(error){
     res.status(500).send({message:error})

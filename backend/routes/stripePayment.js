@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const stripe = require('stripe')('sk_test_51PuatxP5i1YBGuOcqG17KT9JoP8ZVP89T0tPRix3NWCMDTou9O8mWxaWSyoOLYC0OVJZbEylZRgkNYPBDPC8lNoK00YKoEkByi');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const verifyUser3 = require("../middleware/fifth")
 
 

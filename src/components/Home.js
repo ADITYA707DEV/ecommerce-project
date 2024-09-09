@@ -1,15 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import Carousel from './Carousel'
-
-
+import { resetCardType } from '../redux/cardTypeSlice'
+import "../css/Style1.css"
 
   function Home() {
   
     const navigate = useNavigate(null)
-    
+    const dispatch = useDispatch()
 
 
     const keeperDetails = useSelector((state)=>{ return state.keeperDetails.details})
@@ -20,13 +20,13 @@ import Carousel from './Carousel'
    
 
     const handleOnClick = (value) => {
-    
+    dispatch(resetCardType())
       navigate(`/card`, { state: { value: value } })
     }
     return (
       <>
      <div className='container-fluid'>
-       <Carousel ></Carousel>
+       <Carousel  ></Carousel>
         <div className='container p-5 my-2 w-75 border border-light shadow-sm'>
           <div className="row row-cols-1 row-cols-md-3 g-4">
            {categoryimage !== undefined?categoryimage.map((cat)=>{ return <div key={cat._id} className="col">
@@ -44,19 +44,19 @@ import Carousel from './Carousel'
        
         </div>
        
-        {keeperDetails&&<div className='d-flex justify-content-around w-100 bg-light p-2'>
+        {keeperDetails&&<div className='d-flex justify-content-around w-100 bg-primary p-2 rounded text-white p-2'>
           <div className='my-4'>
-            <div  className='fw-semibold fs-5 my-1'>contact Us</div>
-            <span>{keeperDetails.phone}</span>
+            <div  className='fw-semibold fs-4  my-1'>contact Us</div>
+            <span className='spanWidth'>{keeperDetails.phone}</span>
+          </div>
+          <div className='my-4 mx-2'>
+            <div  className='fw-semibold fs-4   my-1'>email</div>
+            <span className='spanWidth'>{keeperDetails.email}</span>
           </div>
           <div className='my-4'>
-            <div  className='fw-semibold fs-5 my-1'>email</div>
-            <span>{keeperDetails.email}</span>
-          </div>
-          <div className='my-4'>
-            <div className='fw-semibold fs-5 my-1' >Ofiice</div>
-           <span className='d-block'>{keeperDetails.shopName}</span>
-           <span>{keeperDetails.officeaddress}</span>
+            <div className='fw-semibold fs-4 my-1 ' >Ofiice</div>
+           <span className='d-block spanWidth'>{keeperDetails.shopName}</span>
+           <span className='spanWidth'>{keeperDetails.officeaddress}</span>
           </div>
           
 

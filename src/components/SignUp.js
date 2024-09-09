@@ -35,7 +35,7 @@ function SignUp() {
 
     const res = await response.json()
 
-    if (res.status == 200) {
+    if (response.status == 200) {
       navigate("/login", { replace: true })
       setShowAlert({show:true,text:res.message,colour:"success"})
     }else{     setShowAlert({show:true,text:res.message,colour:"danger"})}
@@ -51,7 +51,7 @@ function SignUp() {
       <form onSubmit={handleOnSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputName1" className="form-label fw-bolder">UserName</label>
-          <input type="text" className="form-control" id="userName" minLength={4}   onChange={handleOnChange} required={true}/>
+          <input type="text" className="form-control" id="name" minLength={4}   onChange={handleOnChange} required={true}/>
 
         </div>
         <div className="mb-3">

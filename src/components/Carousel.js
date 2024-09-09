@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
+import "../css/Style1.css"
 
 function Carousel() {
 
@@ -21,6 +22,7 @@ function Carousel() {
    
 
   return (
+    <div className='carouselDisplay '>
     <div className='d-flex justify-content-center'>
      { top !== null?<div id="carouselExampleAutoplaying" className="carousel slide w-25" data-bs-ride="carousel">
   <div className="carousel-indicators">
@@ -36,8 +38,8 @@ function Carousel() {
       return <div key={item._id} className="carousel-item active">
       <img src= {item.src} className="d-block " style={{height:"400px",maxWidth:"300px"}} alt="..."/>
       <div className="carousel-caption d-none d-md-block   ">
-        <h5>item - {item.clothingType}</h5>
-        <p>rs{item.price}</p>
+        <h5>{item.clothingType}</h5>
+       
       </div>
     </div>})}
     {/* <div className="carousel-item active">
@@ -59,6 +61,7 @@ function Carousel() {
     <span className="visually-hidden">Next</span>
   </button>
 </div>:<div>loading</div>}
+    </div>
     </div>
   )
 }

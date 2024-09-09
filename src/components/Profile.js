@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useEffect,useState,useRef} from 'react'
-
+import { setCookieData } from '../redux/userDataSlice'
 import { resetCart } from '../redux/userDataSlice'
 import { useDispatch } from 'react-redux'
 
@@ -69,6 +69,7 @@ const submit = async  (e)=>{
     headers:{
       "Content-Type": "application/json"
     },
+    credentials: 'include',
     body: JSON.stringify({
       userId: details.data.id,
       city: userData.city,
@@ -78,7 +79,8 @@ const submit = async  (e)=>{
     })
   })
   const res = await response.json()
- 
+  dispatch(setCookieData({name:res.user.name,email:res.user.email,id:res.user._id, city:res.user.city, zip: res.user.zip, address:res.user.address}))
+
 }
  useEffect(()=>{
   handleDisable()

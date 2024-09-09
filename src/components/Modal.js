@@ -122,7 +122,7 @@ function Modal(props) {
       <div className="modal-body">
       <form onSubmit={handleOnSubmit}>
   <div className="mb-3">
-    <label htmlFor="ClothingType" className="form-label">Clothing-Type</label>
+    <label htmlFor="ClothingType" className="form-label">Clothing-Name</label>
     <input type="text" className="form-control" id="ClothingType" onChange={handleOnChange} required={true}/>
   
   </div>
@@ -139,7 +139,7 @@ function Modal(props) {
     <input type="file" className="form-control" id="image" onChange={handleImage} required={true}/>
   </div>
   <div className="mb-3">
-  <span>tag: </span>
+  <span>clothing category: </span>
  
   <select className="form-select" aria-label="Default select example" id="clothingCategory" onClick={handleSelect} required={true} >
   <option defaultValue={"others"}>clothing category</option>
@@ -165,10 +165,7 @@ function Modal(props) {
 
   
   </div>
-  <div className="mb-3">
-    <label htmlFor="brand" className="form-label">brand</label>
-    <input type="text" className="form-control" id="brand" placeholder='enter brand if any?' onChange={handleOnChange}/>
-  </div>
+  
   
   {!loading?<button type="submit" className="btn  btn-outline-primary">Submit</button>:
   <button class="btn btn-primary" type="button" disabled>

@@ -22,11 +22,10 @@ function Card() {
   const [item,setItem] = useState([])
  
 
-  
+
 
   const [type,setype] = useState(null)
- 
-  
+
   const getALLNotes = async ()=>{
    
 
@@ -118,10 +117,6 @@ function Card() {
               {
                  
             return  <CardItem note = {note} key={note._id} ></CardItem>
-          }else{
-        
-            return 
-
           }
         }
         if(cardType.priceRange !== undefined &&  parseInt(note.price) >=  parseInt(cardType.priceRange[0]) && parseInt(note.price) <= parseInt(cardType.priceRange[1])   ){
@@ -130,10 +125,7 @@ function Card() {
           return  <CardItem note = {note} key={note._id} ></CardItem>
         }
  
-          if(i === (item.length - 1)){
-            return <div>no item matches your filter </div>
-          }
-          
+         
         }):<div>no item included by the shopkeeper </div>
       }
       </div>

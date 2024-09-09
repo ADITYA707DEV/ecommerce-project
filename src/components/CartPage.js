@@ -5,7 +5,7 @@ import Alerts from './Alerts'
 import {loadStripe} from '@stripe/stripe-js'
 import { deleteCart } from '../redux/cartSlice'
 import trashcan from "../images/trashcan.png"
-
+import "../css/Style1.css"
 
 function CartPage() {
 
@@ -187,8 +187,8 @@ function CartPage() {
                     {/* <button type='button' className="btn btn-primary" onClick={paying} >checkout</button> */}
                  
 
-  <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    checkout
+  <button type="button" className="btn btn-primary dropdown-toggle  "  data-bs-toggle="dropdown" aria-expanded="false">
+    <div className='fontWidth' >checkout</div>
   </button>
   <ul className="dropdown-menu  border-2 border-black">
     <li><button className='btn btn-primary m-2 text-white '   onClick={paying}>pay online</button></li>

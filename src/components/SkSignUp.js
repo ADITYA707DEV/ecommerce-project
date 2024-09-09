@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { useRef } from 'react'
 import image1 from "../images/loginImage.png"
 import { useNavigate } from 'react-router-dom'
 import Alerts from './Alerts'
@@ -8,6 +9,7 @@ import Alerts from './Alerts'
 
 function SkSignUp() {
   const navigate = useNavigate()
+  const ref = useRef(0)
     const [skCredentials,setCredentials] = useState({})
     const [showAlert,setShowAlert] = useState({show:false,text:null,colour:null})
     const handleOnChange = (e)=>{
@@ -41,14 +43,16 @@ function SkSignUp() {
       const res = await response.json()
       
    
-     if(response.status == 200){ navigate("/")
+     if(response.status == 200){ 
       setShowAlert({show:true,text:res.message,colour:"success"})
+    ref.current.click()
       
      }else{     setShowAlert({show:true,text:res.message,colour:"danger"})}
  
     }
   return (
     <div className='container '>
+         <a href='/' ref={ref } className='d-none'></a>
          {showAlert.show&&<Alerts colour={showAlert.colour} text={showAlert.text} setShowAlert={setShowAlert} show = {showAlert.show}></Alerts>}
        <div className='container h-100 d-flex align-items-center justify-content-center flex-column'>
     <img src={image1} alt="notfound" style={{width:"15%"}} />

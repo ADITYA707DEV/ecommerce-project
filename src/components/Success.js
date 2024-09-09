@@ -64,7 +64,7 @@ const res2 = await fetch("http://localhost:5000/api/orders", {
 
 })
 const response2 = await res2.json()
-console.log(response2)
+
 if(res2.status === 200){
 
   setShowAlert({show:true,text:response2.message,colour:"success"})

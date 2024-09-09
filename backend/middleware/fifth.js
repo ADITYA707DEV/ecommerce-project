@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const JWT_secret2 = "yosh"
+const JWT_secret2 =  process.env.JWT_SECRET_2
 
 const verifyUser3 = async (req,res,next)=>{
 

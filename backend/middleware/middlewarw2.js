@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
-    const jwt_Secret = "hoolululu"
+    const jwt_Secret = process.env.JWT_SECRET_1
     const User = require("../models/userAccount")
-   const JWT_secret2 = "yosh"
+   const JWT_secret2 =  process.env.JWT_SECRET_2
 const verification =  async (req,res,next)=>{
  
     const token = req.cookies.auth
