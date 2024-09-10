@@ -3,6 +3,7 @@ const path = require("path")
 require("dotenv").config()
 const app = express()
 const   dbConnection = require("./db")
+dbConnection()
 const skRoute = require("./routes/shopAccount")
 const siRoute = require("./routes/shopItemsData")
 const uRoute = require("./routes/userAccount")
@@ -25,15 +26,36 @@ app.use(cors({
     origin:["http://localhost:3000"]
 }))
 
-dbConnection()
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
+
+
+
 
 app.use("/api",skRoute)
 app.use("/items",siRoute)
 app.use("/user",uRoute)
 app.use("/payment",stripeRoute)
+
+//---deployment---//
+const __dirname1 = path.resolve()
+
+
+if(process.env.NODE_ENV == "production"){
+  
+  app.use(express.static(path.join(__dirname1,"../build")))
+  app.get("*",(req,res)=>{
+    try {
+
+      res.sendFile(path.resolve(__dirname1,"../","build","index.html"))
+    } catch (error) {
+      res.status(400).send({message:"file not"})
+      console.log("this is error")
+      console.log(error)
+    }
+   
+  })
+}
+
+//--deployment--//
 
 
 app.listen(port,()=>{
